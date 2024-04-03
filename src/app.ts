@@ -5,6 +5,7 @@ import "babylonjs-loaders"
 export class App {
 	private engine: Engine;
 	private canvas: HTMLCanvasElement;
+	private sound: Sound;
 
 	constructor(engine: Engine, canvas: HTMLCanvasElement) {
 		this.engine = engine;
@@ -129,7 +130,7 @@ export class App {
 	addSounds(scene: Scene) {
 		const music = new Sound('music', 'assets/sounds/wave.mp3', scene,
 			null, { loop: true, autoplay: true, volume: .3 });
-		const sound = new Sound('sound', 'assets/sounds/crickets.mp3', scene);
+		this.sound = new Sound('sound', 'assets/sounds/crickets.mp3', scene, null, { volume: 0.1 });
 	}
 
 	createText(scene: Scene) {
@@ -146,6 +147,12 @@ export class App {
 		helloText.fontSize = 60;
 
 		helloTexture.addControl(helloText);
+		helloText.onPointerUpObservable.add(evtData => {
+			// alert('Hello Text at:\n x: ' + evtData.x + ' y: ' + evtData.y);
+		});
+		helloText.onPointerDownObservable.add(() => {
+			this.sound.play();
+		});
 	}
 
 	createSkybox(scene: Scene) {
