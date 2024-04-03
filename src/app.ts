@@ -1,4 +1,4 @@
-import { AbstractMesh, Animation, ArcRotateCamera, Color3, Color4, CubeTexture, Engine, HemisphericLight, MeshBuilder, ParticleSystem, PointLight, Scene, SceneLoader, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
+import { AbstractMesh, Animation, ArcRotateCamera, Color3, Color4, CubeTexture, Engine, HemisphericLight, MeshBuilder, ParticleSystem, PointLight, Scene, SceneLoader, Sound, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 import "babylonjs-loaders"
 
@@ -23,6 +23,7 @@ export class App {
 		sphere.position.z = 5;
 
 		this.loadModel(scene);
+		this.addSounds(scene);
 
 		const helloPlane = MeshBuilder.CreatePlane('hello plane', { size: 15 });
 		helloPlane.position.y = 0;
@@ -131,6 +132,12 @@ export class App {
 
 		particleSystem.gravity = new Vector3(0, -9.8, 0);
 		particleSystem.start();
+	}
+
+	addSounds(scene: Scene) {
+		const music = new Sound('music', 'assets/sounds/wave.mp3', scene,
+			null, { loop: true, autoplay: true, volume: .3 });
+		const sound = new Sound('sound', 'assets/sounds/crickets.mp3', scene);
 	}
 
 	createSkybox(scene: Scene) {
