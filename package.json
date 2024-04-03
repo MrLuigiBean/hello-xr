@@ -4,7 +4,12 @@
   "description": "This should (hopefully) follow/match the `hello-xr` demo by Immersification, section by seection.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest --run",    
     "clean": "rm -rf dist node_modules package-lock.json",
     "comment1": "^ The above command does not work on Windows!(because of `rm`, duh...)",
     "comment2": "So here's an equivalent command for cmd on Windows!",
