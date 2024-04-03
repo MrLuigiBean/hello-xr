@@ -31,8 +31,8 @@ export class App {
 
 		const xr = await scene.createDefaultXRExperienceAsync({
 			uiOptions: {
-				// sessionMode: 'immersive-vr'
-				sessionMode: 'immersive-ar'
+				sessionMode: 'immersive-vr'
+				// sessionMode: 'immersive-ar'
 			}
 		});
 		// only for debugging
