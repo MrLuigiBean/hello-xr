@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest --run",    
+    "test:run": "vitest --run",
     "clean": "rm -rf dist node_modules package-lock.json",
     "comment1": "^ The above command does not work on Windows!(because of `rm`, duh...)",
     "comment2": "So here's an equivalent command for cmd on Windows!",
@@ -19,7 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babylonjs": "^7.0.0"
+    "babylonjs": "^7.0.0",
+    "babylonjs-gui": "^7.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.3",
