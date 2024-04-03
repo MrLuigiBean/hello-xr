@@ -22,7 +22,7 @@ import {
 
 import "babylonjs-loaders"
 
-import { TextPlane } from './components/meshes'
+import { HelloSphere, TextPlane } from './components/meshes'
 
 export class App {
 	private engine: Engine;
@@ -50,6 +50,10 @@ export class App {
 		// this.addSounds(scene);
 
 		this.createText(scene);
+
+		// hello sphere
+		const helloSphere = new HelloSphere("hello sphere", { diameter: 1 }, scene);
+		helloSphere.position.set(0, 1, 5);
 
 		// this.createSkybox(scene);
 		// this.createVideoSkyDome(scene);

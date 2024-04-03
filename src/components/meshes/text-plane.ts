@@ -1,8 +1,10 @@
-import { MeshBuilder, Scene } from 'babylonjs'
+import { Mesh, MeshBuilder, Scene } from 'babylonjs'
 import { AdvancedDynamicTexture, TextBlock } from 'babylonjs-gui'
 
 export class TextPlane {
 	public textBlock: TextBlock;
+	public mesh: Mesh;
+
 	constructor(
 		name: string, width: number, height: number,
 		x: number, y: number, z: number,
@@ -21,5 +23,7 @@ export class TextPlane {
 		this.textBlock.fontSize = fontSize;
 
 		planeTexture.addControl(this.textBlock);
+
+		this.mesh = textPlane;
 	}
 }
