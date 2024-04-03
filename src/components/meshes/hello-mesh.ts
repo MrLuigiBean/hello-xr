@@ -1,10 +1,25 @@
-import { AbstractMesh, Mesh, MeshBuilder, Scene, StandardMaterial } from "babylonjs";
+import {
+	AbstractMesh,
+	ActionManager,
+	Color3,
+	InterpolateValueAction,
+	Mesh,
+	MeshBuilder,
+	PredicateCondition,
+	Scene,
+	SetValueAction,
+	StandardMaterial,
+	Vector3
+} from "babylonjs";
+
 import { TextPlane } from "./text-plane"
 
 export interface HelloMesh {
 	scene: Scene;
 	mesh: Mesh;
 	label: TextPlane;
+
+	sayHello(message?: string): void;
 }
 
 export class HelloSphere extends AbstractMesh implements HelloMesh {
@@ -22,5 +37,55 @@ export class HelloSphere extends AbstractMesh implements HelloMesh {
 			0, options.diameter / 2 + 0.2, 0,
 			"hello sphere", "purple", "white", 25, scene);
 		this.addChild(this.label.mesh);
+
+		this.initActions();
+	}
+
+	sayHello(message?: string): void {
+		console.log("message from hello sphere: " + message);
+	}
+
+	private initActions() {
+		const actionManager = this.actionManager = new ActionManager(this.scene);
+		actionManager.isRecursive = true;
+
+		const light = this.scene.getLightById("default light");
+
+		actionManager.registerAction(
+			new InterpolateValueAction(
+				ActionManager.OnPickDownTrigger,
+				light, "diffuse", Color3.Black(), 1000
+			)).then(
+				new InterpolateValueAction(
+					ActionManager.OnPickDownTrigger,
+					light, "diffuse", Color3.White(), 1000
+				));
+
+		actionManager.registerAction(
+			new InterpolateValueAction(
+				ActionManager.OnPickDownTrigger,
+				this, "scaling", new Vector3(2, 2, 2), 1000,
+				new PredicateCondition(
+					actionManager,
+					() => {
+						return light.diffuse.equals(Color3.Black());
+					}
+				)
+			)
+		);
+
+		const otherMesh = this.scene.getMeshByName("sphere");
+		actionManager.registerAction(
+			new SetValueAction(
+				{
+					trigger: ActionManager.OnIntersectionEnterTrigger,
+					parameter: {
+						mesh: otherMesh,
+						usePreciseIntersection: true
+					}
+				},
+				this.mesh.material, "wireframe", true
+			)
+		);
 	}
 }

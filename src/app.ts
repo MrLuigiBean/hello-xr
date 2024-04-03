@@ -55,6 +55,7 @@ export class App {
 		// hello sphere
 		const helloSphere = new HelloSphere("hello sphere", { diameter: 1 }, scene);
 		helloSphere.position.set(0, 1, 5);
+		helloSphere.sayHello("this is a test.");
 
 		// ground
 		const groundMaterial = new StandardMaterial("ground material", scene);
@@ -72,6 +73,9 @@ export class App {
 			console.log(evtData);
 		});
 		sphere.addBehavior(pointerDragBehavior);
+
+		const helloSphereDragBehavior = new PointerDragBehavior({ dragPlaneNormal: Vector3.Forward() });
+		helloSphere.addBehavior(helloSphereDragBehavior);
 
 		// this.createSkybox(scene);
 		// this.createVideoSkyDome(scene);
