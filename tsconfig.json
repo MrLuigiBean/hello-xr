@@ -15,9 +15,13 @@
 			"es5"
 		],
 		"declaration": true,
-		"outDir": "./src"
+		"outDir": "./src",
+		"types": [
+			"babylonjs"
+		]
 	},
 	"files": [
-		"./src/index.ts"
+		"./src/index.ts",
+		"./src/app.ts"
 	]
 }
