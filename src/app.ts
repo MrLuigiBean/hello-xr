@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Color3, CubeTexture, Engine, HemisphericLight, MeshBuilder, PointLight, Scene, SceneLoader, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
+import { AbstractMesh, Animation, ArcRotateCamera, Color3, CubeTexture, Engine, HemisphericLight, MeshBuilder, PointLight, Scene, SceneLoader, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 import "babylonjs-loaders"
 
@@ -80,7 +80,25 @@ export class App {
 			root.position.y = -1;
 			root.rotation = new Vector3(0, 0, Math.PI);
 			root.scaling.setAll(10);
+			this.createAnimation(scene, root);
 		});
+	}
+
+	createAnimation(scene: Scene, model: AbstractMesh) {
+		const animation = new Animation(
+			'rotationAnima', 'rotation', 30,
+			Animation.ANIMATIONTYPE_VECTOR3,
+			Animation.ANIMATIONLOOPMODE_CYCLE
+		);
+
+		const keyframes = [
+			{ frame: 0, value: new Vector3(0, 0, 0) },
+			{ frame: 30, value: new Vector3(0, 2 * Math.PI, 0) }
+		];
+
+		animation.setKeys(keyframes);
+		model.animations.push(animation);
+		scene.beginAnimation(model, 0, 30, true);
 	}
 
 	createSkybox(scene: Scene) {
