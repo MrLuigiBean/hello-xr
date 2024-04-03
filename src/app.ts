@@ -1,5 +1,6 @@
 import {
 	AbstractMesh,
+	ActionManager,
 	Animation,
 	ArcRotateCamera,
 	Color3,
@@ -41,6 +42,8 @@ export class App {
 		scene.createDefaultCameraOrLight(false, true, true);
 		// this.createCamera(scene);
 		// this.createLights(scene);
+
+		scene.actionManager = new ActionManager(scene);
 
 		// simple sphere
 		const sphere = MeshBuilder.CreateSphere('sphere', { diameter: 1.3 }, scene);

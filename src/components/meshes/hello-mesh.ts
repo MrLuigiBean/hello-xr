@@ -2,6 +2,7 @@ import {
 	AbstractMesh,
 	ActionManager,
 	Color3,
+	ExecuteCodeAction,
 	InterpolateValueAction,
 	Mesh,
 	MeshBuilder,
@@ -85,6 +86,20 @@ export class HelloSphere extends AbstractMesh implements HelloMesh {
 					}
 				},
 				this.mesh.material, "wireframe", true
+			)
+		);
+
+		this.scene.actionManager.registerAction(
+			new ExecuteCodeAction(
+				{
+					trigger: ActionManager.OnKeyUpTrigger,
+					parameter: "r"
+				},
+				() => {
+					this.scaling.setAll(1);
+					this.mesh.material.wireframe = false;
+					console.log("r was pressed: reset " + this.name)
+				}
 			)
 		);
 	}
