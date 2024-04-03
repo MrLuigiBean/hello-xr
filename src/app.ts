@@ -67,22 +67,20 @@ export class App {
 		pointLight.diffuse = new Color3(1, 0, 0);
 	}
 
-	async loadModel(scene: Scene) { // Thanks Bryan!!
+	loadModel(scene: Scene) { // Thanks Bryan!!
 		// Load a custom "dragon" object
-        // The direct URL to the dragon.glb file
-        const dragonUrl = "https://raw.githubusercontent.com/BabylonJS/Assets/master/meshes/Georgia-Tech-Dragon/dragon.glb";
+		// The direct URL to the dragon.glb file
+		const dragonUrl = "https://raw.githubusercontent.com/BabylonJS/Assets/master/meshes/Georgia-Tech-Dragon/dragon.glb";
 
-        // Using SceneLoader to load the model directly from the URL
-        const result = await SceneLoader.ImportMeshAsync("", dragonUrl, "", scene);
-        const dragon = result.meshes[0];
-        dragon.name = 'dragon';
-        dragon.position = new Vector3(0, 0, 2);
-        dragon.scaling = new Vector3(10, 10, 10);
-        const dragonMaterial = new StandardMaterial('dragonMat', scene);
-        dragonMaterial.diffuseColor = new Color3(1, 0, 0); // Initial color
-        result.meshes.forEach((mesh) => {
-            mesh.material = dragonMaterial;
-        });
+		// Using SceneLoader to load the model directly from the URL
+		SceneLoader.ImportMeshAsync("", dragonUrl, "", scene).then(result => {
+			const root = result.meshes[0];
+			root.id = 'dragon';
+			root.name = 'dragon';
+			root.position.y = -1;
+			root.rotation = new Vector3(0, 0, Math.PI);
+			root.scaling.setAll(10);
+		});
 	}
 
 	createSkybox(scene: Scene) {
