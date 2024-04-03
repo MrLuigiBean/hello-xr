@@ -10,7 +10,12 @@ const canvas = document.getElementById('renderCanvas') as HTMLCanvasElement;
 const engine = new Engine(canvas, true);
 
 const app = new App(engine, canvas)
-const scene = app.createScene()
-engine.runRenderLoop(() => {
-	scene.render();
+const scenePromise = app.createScene()
+// engine.runRenderLoop(() => {
+// 	scene.render();
+// })
+scenePromise.then(scene => {
+	engine.runRenderLoop(() => {
+		scene.render();
+	});
 })

@@ -11,7 +11,7 @@ export class App {
 		console.log('app is running');
 	}
 
-	createScene() {
+	async createScene() {
 		const scene = new Scene(this.engine);
 		scene.createDefaultCameraOrLight();
 
@@ -29,11 +29,13 @@ export class App {
 		helloText.fontSize = 50;
 		helloTexture.addControl(helloText);
 
-		const xr = scene.createDefaultXRExperienceAsync({
+		const xr = await scene.createDefaultXRExperienceAsync({
 			uiOptions: {
 				sessionMode: 'immersive-vr'
 			}
 		});
+		// only for debugging
+		// (window as any).xr = xr
 
 		return scene;
 	}
