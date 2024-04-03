@@ -9,6 +9,7 @@ import {
 	Engine,
 	HemisphericLight,
 	MeshBuilder,
+	Observable,
 	ParticleSystem,
 	PointLight,
 	PointerDragBehavior,
@@ -82,6 +83,25 @@ export class App {
 
 		// this.createSkybox(scene);
 		// this.createVideoSkyDome(scene);
+
+		// use observables
+		// 1. create an observable for detecting intersections
+		const onIntersectObservable = new Observable<boolean>();
+		scene.registerBeforeRender(function () {
+			const isIntersecting = sphere.intersectsMesh(helloSphere, true, true);
+			onIntersectObservable.notifyObservers(isIntersecting);
+		});
+		helloSphere.onIntersectObservable = onIntersectObservable;
+		const redColor = Color3.Red();
+		const whiteColor = Color3.White();
+		helloSphere.onIntersectObservable.add(isIntersecting => {
+			const material = helloSphere.mesh.material as StandardMaterial;
+			const isRed = material.diffuseColor === redColor;
+			if (isIntersecting && !isRed)
+				material.diffuseColor = redColor
+			else if (!isIntersecting && isRed)
+				material.diffuseColor = whiteColor;
+		});
 
 		this.addInspectorKeyboardShortcut(scene);
 

@@ -6,6 +6,7 @@ import {
 	InterpolateValueAction,
 	Mesh,
 	MeshBuilder,
+	Observable,
 	PredicateCondition,
 	Scene,
 	SetValueAction,
@@ -19,6 +20,7 @@ export interface HelloMesh {
 	scene: Scene;
 	mesh: Mesh;
 	label: TextPlane;
+	onIntersectObservable: Observable<boolean>;
 
 	sayHello(message?: string): void;
 }
@@ -27,6 +29,7 @@ export class HelloSphere extends AbstractMesh implements HelloMesh {
 	scene: Scene;
 	mesh: Mesh;
 	label: TextPlane;
+	onIntersectObservable: Observable<boolean>;
 
 	constructor(name: string, options: { diameter: number }, scene: Scene) {
 		super(name, scene);
