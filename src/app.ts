@@ -37,12 +37,13 @@ export class App {
 
 	async createScene() {
 		const scene = new Scene(this.engine);
-		// scene.createDefaultCameraOrLight();
-		this.createCamera(scene);
-		this.createLights(scene);
+		scene.createDefaultCameraOrLight();
+		// this.createCamera(scene);
+		// this.createLights(scene);
 
+		// simple sphere
 		const sphere = MeshBuilder.CreateSphere('sphere', { diameter: 1.3 }, scene);
-		sphere.position.y = 1;
+		sphere.position.y = -0.5;
 		sphere.position.z = 5;
 
 		// this.loadModel(scene);
@@ -156,8 +157,8 @@ export class App {
 	}
 
 	createText(scene: Scene) {
-		const helloPlane = new TextPlane("hello plane", 2.5, 1,
-			0, 0, 5,
+		const helloPlane = new TextPlane("hello plane", 3, 1,
+			0, 2, 5,
 			"Hello XR", "white", "purple",
 			60, scene);
 		helloPlane.textBlock.onPointerUpObservable.add(evtData => {
