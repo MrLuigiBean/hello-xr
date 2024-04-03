@@ -1,6 +1,28 @@
-import { AbstractMesh, Animation, ArcRotateCamera, Color3, Color4, CubeTexture, Engine, HemisphericLight, MeshBuilder, ParticleSystem, PointLight, Scene, SceneLoader, Sound, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
-import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
+import {
+	AbstractMesh,
+	Animation,
+	ArcRotateCamera,
+	Color3,
+	Color4,
+	CubeTexture,
+	Engine,
+	HemisphericLight,
+	MeshBuilder,
+	ParticleSystem,
+	PointLight,
+	Scene,
+	SceneLoader,
+	Sound,
+	StandardMaterial,
+	Texture,
+	UniversalCamera,
+	Vector3,
+	VideoDome
+} from "babylonjs";
+
 import "babylonjs-loaders"
+
+import { TextPlane } from './components/meshes'
 
 export class App {
 	private engine: Engine;
@@ -134,24 +156,15 @@ export class App {
 	}
 
 	createText(scene: Scene) {
-		const helloPlane = MeshBuilder.CreatePlane('hello plane', { width: 2.5, height: 1.5 });
-		helloPlane.position.y = 0;
-		helloPlane.position.z = 5;
-
-		const helloTexture = AdvancedDynamicTexture.CreateForMesh(helloPlane, 250, 150, false);
-		helloTexture.background = 'white';
-
-		const helloText = new TextBlock('hello');
-		helloText.text = 'Hello XR';
-		helloText.color = 'purple';
-		helloText.fontSize = 60;
-
-		helloTexture.addControl(helloText);
-		helloText.onPointerUpObservable.add(evtData => {
+		const helloPlane = new TextPlane("hello plane", 2.5, 1,
+			0, 0, 5,
+			"Hello XR", "white", "purple",
+			60, scene);
+		helloPlane.textBlock.onPointerUpObservable.add(evtData => {
 			// alert('Hello Text at:\n x: ' + evtData.x + ' y: ' + evtData.y);
 		});
-		helloText.onPointerDownObservable.add(() => {
-			this.sound.play();
+		helloPlane.textBlock.onPointerDownObservable.add(() => {
+			// this.sound.play();
 		});
 	}
 
