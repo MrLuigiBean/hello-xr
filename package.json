@@ -20,7 +20,8 @@
   "license": "ISC",
   "dependencies": {
     "babylonjs": "^7.0.0",
-    "babylonjs-gui": "^7.0.0"
+    "babylonjs-gui": "^7.0.0",
+    "babylonjs-loaders": "^7.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.3",
