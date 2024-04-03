@@ -29,6 +29,12 @@ export class App {
 		helloText.fontSize = 50;
 		helloTexture.addControl(helloText);
 
+		const xr = scene.createDefaultXRExperienceAsync({
+			uiOptions: {
+				sessionMode: 'immersive-vr'
+			}
+		});
+
 		return scene;
 	}
 }
