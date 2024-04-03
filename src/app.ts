@@ -1,4 +1,4 @@
-import { AbstractMesh, Animation, ArcRotateCamera, Color3, CubeTexture, Engine, HemisphericLight, MeshBuilder, PointLight, Scene, SceneLoader, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
+import { AbstractMesh, Animation, ArcRotateCamera, Color3, Color4, CubeTexture, Engine, HemisphericLight, MeshBuilder, ParticleSystem, PointLight, Scene, SceneLoader, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 import "babylonjs-loaders"
 
@@ -81,6 +81,7 @@ export class App {
 			root.rotation = new Vector3(0, 0, Math.PI);
 			root.scaling.setAll(10);
 			this.createAnimation(scene, root);
+			this.createParticles(scene);
 		});
 	}
 
@@ -99,6 +100,37 @@ export class App {
 		animation.setKeys(keyframes);
 		model.animations.push(animation);
 		scene.beginAnimation(model, 0, 30, true);
+	}
+
+	createParticles(scene: Scene) {
+		const particleSystem = new ParticleSystem('particles', 5000, scene);
+		particleSystem.particleTexture = new Texture('assets/textures/grass.png');
+
+		particleSystem.emitter = Vector3.Zero();
+		particleSystem.minEmitBox = Vector3.Zero();
+		particleSystem.maxEmitBox = Vector3.Zero();
+
+		particleSystem.color1 = new Color4(0.7, 0.8, 1.0, 1.0);
+		particleSystem.color2 = new Color4(0.3, 0.5, 1.0, 1.0);
+		particleSystem.blendMode = ParticleSystem.BLENDMODE_ONEONE;
+
+		particleSystem.minSize = 0.01;
+		particleSystem.maxSize = 0.05;
+
+		particleSystem.minLifeTime = 0.3;
+		particleSystem.maxLifeTime = 1.5;
+
+		particleSystem.emitRate = 1500;
+
+		particleSystem.direction1 = new Vector3(-1, 8, 1);
+		particleSystem.direction2 = new Vector3(1, 8, -1);
+
+		particleSystem.minEmitPower = 0.2;
+		particleSystem.maxEmitPower = 0.8;
+		particleSystem.updateSpeed = 0.01;
+
+		particleSystem.gravity = new Vector3(0, -9.8, 0);
+		particleSystem.start();
 	}
 
 	createSkybox(scene: Scene) {
