@@ -11,5 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "babylonjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7",
+    "vitest": "^1.4.0"
   }
 }
