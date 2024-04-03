@@ -1,4 +1,4 @@
-import { Engine, MeshBuilder, Scene } from "babylonjs";
+import { Color3, CubeTexture, Engine, MeshBuilder, Scene, StandardMaterial, Texture } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 
 export class App {
@@ -29,6 +29,8 @@ export class App {
 		helloText.fontSize = 50;
 		helloTexture.addControl(helloText);
 
+		this.createSkybox(scene);
+
 		const xr = await scene.createDefaultXRExperienceAsync({
 			uiOptions: {
 				sessionMode: 'immersive-vr'
@@ -39,5 +41,17 @@ export class App {
 		// (window as any).xr = xr
 
 		return scene;
+	}
+
+	createSkybox(scene: Scene) {
+		const skybox = MeshBuilder.CreateBox('skybox', { size: 1000 }, scene);
+		const skyboxMaterial = new StandardMaterial('skybox-mat');
+
+		skyboxMaterial.backFaceCulling = false;
+		skyboxMaterial.reflectionTexture = new CubeTexture('assets/textures/skybox', scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+		skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
+		skyboxMaterial.specularColor = new Color3(0, 0, 0);
+		skybox.material = skyboxMaterial;
 	}
 }
