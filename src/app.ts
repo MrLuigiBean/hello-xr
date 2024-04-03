@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Color3, CubeTexture, Engine, HemisphericLight, MeshBuilder, PointLight, Scene, StandardMaterial, Texture, UniversalCamera, Vector3 } from "babylonjs";
+import { ArcRotateCamera, Color3, CubeTexture, Engine, HemisphericLight, MeshBuilder, PointLight, Scene, StandardMaterial, Texture, UniversalCamera, Vector3, VideoDome } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 
 export class App {
@@ -31,7 +31,8 @@ export class App {
 		helloText.fontSize = 50;
 		helloTexture.addControl(helloText);
 
-		this.createSkybox(scene);
+		// this.createSkybox(scene);
+		this.createVideoSkyDome(scene);
 
 		const xr = await scene.createDefaultXRExperienceAsync({
 			uiOptions: {
@@ -71,5 +72,17 @@ export class App {
 		skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
 		skyboxMaterial.specularColor = new Color3(0, 0, 0);
 		skybox.material = skyboxMaterial;
+	}
+
+	createVideoSkyDome(scene: Scene) {
+		const dome = new VideoDome(
+			'videoDome',
+			'assets/videos/bridge-360.mp4',
+			{
+				resolution: 32,
+				size: 1000
+			},
+			scene
+		);
 	}
 }
