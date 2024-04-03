@@ -25,15 +25,7 @@ export class App {
 		this.loadModel(scene);
 		this.addSounds(scene);
 
-		const helloPlane = MeshBuilder.CreatePlane('hello plane', { size: 15 });
-		helloPlane.position.y = 0;
-		helloPlane.position.z = 5;
-		const helloTexture = AdvancedDynamicTexture.CreateForMesh(helloPlane);
-		const helloText = new TextBlock('hello');
-		helloText.text = 'Hello XR';
-		helloText.color = 'purple';
-		helloText.fontSize = 50;
-		helloTexture.addControl(helloText);
+		this.createText(scene);
 
 		// this.createSkybox(scene);
 		this.createVideoSkyDome(scene);
@@ -138,6 +130,22 @@ export class App {
 		const music = new Sound('music', 'assets/sounds/wave.mp3', scene,
 			null, { loop: true, autoplay: true, volume: .3 });
 		const sound = new Sound('sound', 'assets/sounds/crickets.mp3', scene);
+	}
+
+	createText(scene: Scene) {
+		const helloPlane = MeshBuilder.CreatePlane('hello plane', { width: 2.5, height: 1.5 });
+		helloPlane.position.y = 0;
+		helloPlane.position.z = 5;
+
+		const helloTexture = AdvancedDynamicTexture.CreateForMesh(helloPlane, 250, 150, false);
+		helloTexture.background = 'white';
+
+		const helloText = new TextBlock('hello');
+		helloText.text = 'Hello XR';
+		helloText.color = 'purple';
+		helloText.fontSize = 60;
+
+		helloTexture.addControl(helloText);
 	}
 
 	createSkybox(scene: Scene) {
