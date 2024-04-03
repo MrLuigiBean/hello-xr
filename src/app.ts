@@ -10,6 +10,7 @@ import {
 	MeshBuilder,
 	ParticleSystem,
 	PointLight,
+	PointerDragBehavior,
 	Scene,
 	SceneLoader,
 	Sound,
@@ -37,7 +38,7 @@ export class App {
 
 	async createScene() {
 		const scene = new Scene(this.engine);
-		scene.createDefaultCameraOrLight();
+		scene.createDefaultCameraOrLight(false, true, true);
 		// this.createCamera(scene);
 		// this.createLights(scene);
 
@@ -54,6 +55,23 @@ export class App {
 		// hello sphere
 		const helloSphere = new HelloSphere("hello sphere", { diameter: 1 }, scene);
 		helloSphere.position.set(0, 1, 5);
+
+		// ground
+		const groundMaterial = new StandardMaterial("ground material", scene);
+		groundMaterial.backFaceCulling = true;
+		groundMaterial.diffuseTexture = new Texture('assets/textures/grass.png', scene);
+		const ground = MeshBuilder.CreateGround("ground", { width: 12, height: 12 }, scene);
+		ground.material = groundMaterial;
+		ground.position.set(0, -1, 8);
+
+		// interactions
+		// use behaviors
+		const pointerDragBehavior = new PointerDragBehavior({ dragPlaneNormal: Vector3.Up() });
+		pointerDragBehavior.onDragStartObservable.add(evtData => {
+			console.log("drag start: pointer id - " + evtData.pointerId);
+			console.log(evtData);
+		});
+		sphere.addBehavior(pointerDragBehavior);
 
 		// this.createSkybox(scene);
 		// this.createVideoSkyDome(scene);
