@@ -23,13 +23,13 @@ export class App {
 		sphere.position.y = 1;
 		sphere.position.z = 5;
 
-		this.loadModel(scene);
-		this.addSounds(scene);
+		// this.loadModel(scene);
+		// this.addSounds(scene);
 
 		this.createText(scene);
 
 		// this.createSkybox(scene);
-		this.createVideoSkyDome(scene);
+		// this.createVideoSkyDome(scene);
 
 		this.addInspectorKeyboardShortcut(scene);
 
