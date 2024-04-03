@@ -34,6 +34,8 @@ export class App {
 		// this.createSkybox(scene);
 		this.createVideoSkyDome(scene);
 
+		this.addInspectorKeyboardShortcut(scene);
+
 		const xr = await scene.createDefaultXRExperienceAsync({
 			uiOptions: {
 				sessionMode: 'immersive-vr'
@@ -84,5 +86,17 @@ export class App {
 			},
 			scene
 		);
+	}
+
+	addInspectorKeyboardShortcut(scene: Scene) {
+		window.addEventListener('keydown', e => {
+			if (e.ctrlKey && e.altKey && e.key === 'i') {
+				if (scene.debugLayer.isVisible()) {
+					scene.debugLayer.hide()
+				} else {
+					scene.debugLayer.show();
+				}
+			}
+		});
 	}
 }
