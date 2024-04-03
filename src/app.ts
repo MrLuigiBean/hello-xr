@@ -1,4 +1,4 @@
-import { Color3, CubeTexture, Engine, MeshBuilder, Scene, StandardMaterial, Texture } from "babylonjs";
+import { ArcRotateCamera, Color3, CubeTexture, Engine, MeshBuilder, Scene, StandardMaterial, Texture, UniversalCamera, Vector3 } from "babylonjs";
 import { AdvancedDynamicTexture, TextBlock } from "babylonjs-gui";
 
 export class App {
@@ -13,7 +13,8 @@ export class App {
 
 	async createScene() {
 		const scene = new Scene(this.engine);
-		scene.createDefaultCameraOrLight();
+		// scene.createDefaultCameraOrLight();
+		this.createCamera(scene);
 
 		const sphere = MeshBuilder.CreateSphere('sphere', { diameter: 1.3 }, scene);
 		sphere.position.y = 1;
@@ -41,6 +42,12 @@ export class App {
 		// (window as any).xr = xr
 
 		return scene;
+	}
+
+	createCamera(scene: Scene) {
+		// const camera = new ArcRotateCamera('arcCamera', -Math.PI / 5, Math.PI / 2, 5, Vector3.Zero(), scene);
+		const camera = new UniversalCamera('uniCamera', new Vector3(0, 0, -5), scene);
+		camera.attachControl(this.canvas, true);
 	}
 
 	createSkybox(scene: Scene) {
